@@ -1,7 +1,8 @@
-import CardValidator from "./cardValidator/CardValidator";
+import Popover from "./Popover/Popover";
 
-document.addEventListener("DOMContentLoaded", () => {
-  const container = document.querySelector(".container");
-  const validator = new CardValidator(container);
-  validator.bindedToDOM();
-});
+const button = document.querySelector('.button');
+const popover = new Popover(button, 'Popover title', 'And here is some amazing content. It is very engaging. Right?');
+
+button.addEventListener('click', () => {
+  popover.createPopover();
+})
