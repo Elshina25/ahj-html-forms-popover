@@ -14,5 +14,5 @@ document.addEventListener('click', (e) => {
 });
 
 window.addEventListener('resize', () => {
-  popover.setPosition()
+  popover.setPosition();
 });
