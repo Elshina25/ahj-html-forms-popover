@@ -25,9 +25,9 @@ describe("the popover should toggle when the button is clicked", () => {
       });
     });
     browser = await puppeteer.launch({
-      headless: false,
-      devtools: false,
-      slowMo: 100,
+     // headless: false,
+     // devtools: false,
+     // slowMo: 100,
     });
     page = await browser.newPage();
   });
