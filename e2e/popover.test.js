@@ -25,9 +25,9 @@ describe("the popover should toggle when the button is clicked", () => {
       });
     });
     browser = await puppeteer.launch({
-        headless: false,
-        devtools: false,
-        slowMo: 100,
+      headless: false,
+      devtools: false,
+      slowMo: 100,
     });
     page = await browser.newPage();
   });
@@ -38,28 +38,38 @@ describe("the popover should toggle when the button is clicked", () => {
     await button.click();
     const popover = await page.waitForSelector(".popover");
 
-    const popoverActive = await popover.evaluate(el => el.getAttribute('class'));
-    expect(popoverActive.includes('active')).toBe(true);
+    const popoverActive = await popover.evaluate((el) =>
+      el.getAttribute("class")
+    );
+    expect(popoverActive.includes("active")).toBe(true);
 
     await button.click();
-    const popoverNotActive = await popover.evaluate(el => el.getAttribute('class'));
+    const popoverNotActive = await popover.evaluate((el) =>
+      el.getAttribute("class")
+    );
 
-    expect(popoverNotActive.includes('active')).toBe(false);
+    expect(popoverNotActive.includes("active")).toBe(false);
   });
 
   test("popover close when not button click", async () => {
     await page.goto("http://localhost:8080");
     const button = await page.$(".button");
     await button.click();
-    await page.waitForSelector(".popover");
+    const popover = await page.waitForSelector(".popover");
 
-    const popover = await page.$('.popover[class="active"]');
+    const popoverActive = await popover.evaluate((el) =>
+      el.getAttribute("class")
+    );
 
-    page.on('click', async (e) => {
-      if (e.target !== button && popover.classList.contains("active")) {
-        expect(popover).not.toHaveClass("active");
+    page.on("click", async (e) => {
+      let popoverNotActive;
+      if (e.target !== button && popoverActive.includes("active")) {
+        popoverNotActive = await popover.evaluate((el) =>
+          el.getAttribute("class")
+        );
       }
-    })
+      expect(popoverNotActive.includes("active")).toBe(false);
+    });
   });
 
   afterAll(async () => {
