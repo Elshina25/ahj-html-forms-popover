@@ -4,8 +4,12 @@ const button = document.querySelector('.button');
 const popover = new Popover(button, 'Popover title', 'And here is some amazing content. It is very engaging. Right?');
 popover.create();
 
-button.addEventListener('click', () => {
-  popover.popover.classList.toggle('active');
+document.addEventListener('click', (e) => {
+  if (e.target === button) {
+    popover.popover.classList.toggle('active');
+  } else {
+    popover.popover.classList.remove('active');
+  }
   popover.setPosition();
 });
 
